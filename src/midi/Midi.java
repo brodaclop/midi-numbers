@@ -26,9 +26,10 @@ public class Midi {
 			//9051
 			//15407
 			//CollatzGenerator generator = new CollatzGenerator(77031);
-			PrimeGenerator generator = new PrimeGenerator(10000);
+			//PrimeGenerator generator = new PrimeGenerator(10000);
 			//FibonacciGenerator generator = new FibonacciGenerator(1);
 			//RandomGenerator generator = new RandomGenerator(0);
+			Generator generator = new SquareGenerator();
 			Scale scale = Scale.MAJOR;
 			
 			
