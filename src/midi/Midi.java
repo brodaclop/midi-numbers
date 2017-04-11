@@ -1,6 +1,6 @@
 package midi;
 
-import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
@@ -25,12 +25,14 @@ public class Midi {
 			//1793
 			//9051
 			//15407
-			CollatzGenerator generator = new CollatzGenerator(77031);
-			//PrimeGenerator generator = new PrimeGenerator(10000);
+			//CollatzGenerator generator = new CollatzGenerator(77031);
+			PrimeGenerator generator = new PrimeGenerator(10000);
+			//FibonacciGenerator generator = new FibonacciGenerator(1);
+			//RandomGenerator generator = new RandomGenerator(0);
 			Scale scale = Scale.MAJOR;
 			
 			
-			IntStream.generate(generator::next).forEach(i -> {
+			LongStream.generate(generator::next).forEach(i -> {
 				scale.playNote(c_left, i,0, 64); 
 				scale.playNote(c_right, i,-2, 0); 
 				delay();	

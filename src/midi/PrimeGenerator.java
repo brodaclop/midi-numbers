@@ -2,7 +2,7 @@ package midi;
 
 import java.util.Arrays;
 
-public class PrimeGenerator {
+public class PrimeGenerator implements Generator {
 
 	private final int [] sieve;
 	private int idx = 0;
@@ -20,7 +20,7 @@ public class PrimeGenerator {
 		Arrays.stream(sieve).filter(i -> i != 0).forEach(System.out::println);
 	}
 	
-	public int next() {
+	public long next() {
 		while (idx < sieve.length) {
 			if (sieve[idx] == 0) {
 				idx++;

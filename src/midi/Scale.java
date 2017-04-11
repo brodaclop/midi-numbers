@@ -13,11 +13,10 @@ public enum Scale {
 
 	private int[] scale;
 	
-	private static int[] SCALE = {60, 62, 64, 65, 67, 69, 71};
-
-	public void playNote(MidiChannel c, int note, int octave, int volume) {
-		int key = scale[note % scale.length] + octave * 12;
-		int speed = ((note & 15) << 2) + volume;
+	public void playNote(MidiChannel c, long note, int octave, int volume) {
+		int idx = (int)(note % scale.length);
+		int key = scale[idx] + octave * 12;
+		int speed = (int)(((note & 15) << 2) + volume);
 		System.out.println(note+" -> "+key+"/"+speed);
 		c.noteOn(key, speed);
 	}	

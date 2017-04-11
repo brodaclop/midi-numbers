@@ -1,14 +1,14 @@
 package midi;
 
-public class CollatzGenerator {
+public class CollatzGenerator implements Generator {
 
-	private int value;
+	private long value;
 
-	public CollatzGenerator(int value) {
+	public CollatzGenerator(long value) {
 		this.value = value;
 	}
 	
-	public int next() {
+	public long next() {
 		return value = ((value & 1) == 0 ? value : value*3+1) >> 1; 
 	}
 	
