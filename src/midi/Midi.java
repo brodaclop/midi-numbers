@@ -1,7 +1,9 @@
 package midi;
 
+import java.util.Arrays;
 import java.util.stream.LongStream;
 
+import javax.sound.midi.Instrument;
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
@@ -14,12 +16,13 @@ public class Midi {
 		Synthesizer s = MidiSystem.getSynthesizer();
 		try {
 			s.open();
-			MidiChannel c_left = s.getChannels()[0];
-			c_left.controlChange(10, 0);
-			c_left.allNotesOff();
-			MidiChannel c_right = s.getChannels()[1];
-			c_right.controlChange(10, 127);
-			c_right.allNotesOff();
+			Instrument bass = s.getLoadedInstruments()[45];
+			Instrument solo = s.getLoadedInstruments()[14];
+			System.out.println("bass: "+bass);
+			System.out.println("solo: "+solo);
+			Scale scale = Scale.MAJOR;
+			Player left = Player.create(s.getChannels()[0], scale, 4, 0, bass);
+			Player right = Player.create(s.getChannels()[1], scale, 6, 127, solo);
 			delay();
 
 			//1793
@@ -29,13 +32,12 @@ public class Midi {
 			//PrimeGenerator generator = new PrimeGenerator(10000);
 			//FibonacciGenerator generator = new FibonacciGenerator(1);
 			//RandomGenerator generator = new RandomGenerator(0);
-			Generator generator = new SquareGenerator();
-			Scale scale = Scale.MAJOR;
+			Generator generator = new FibonacciGenerator(1);
 			
 			
 			LongStream.generate(generator::next).forEach(i -> {
-				scale.playNote(c_left, i,0, 64); 
-				scale.playNote(c_right, i,-2, 0); 
+				left.playNote(i,64); 
+				right.playNote(i, 0); 
 				delay();	
 			});
 			
